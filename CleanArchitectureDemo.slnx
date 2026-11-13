@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="TiendaProductos.Application/TiendaProductos.Application.csproj" />
+  <Project Path="TiendaProductos.Domain/TiendaProductos.Domain.csproj" />
+  <Project Path="TiendaProductos.Infrastructure/TiendaProductos.Infrastructure.csproj" />
+  <Project Path="TiendaProductos.WebAPI/TiendaProductos.WebAPI.csproj" />
+</Solution>
