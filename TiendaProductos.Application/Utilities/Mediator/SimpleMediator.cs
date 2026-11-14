@@ -21,4 +21,12 @@ public class SimpleMediator(IServiceProvider sp) : IMediator
 
         return await (Task<TResponse>)metodo.Invoke(casoDeUso, new object[] { request })!;
     }
+
+    public async Task Send(IRequest request)
+    {
+        var tipoHandler = typeof(IRequestHandler<>).MakeGenericType(request.GetType());
+        var casoDeUso = sp.GetRequiredService(tipoHandler);
+        var metodo = tipoHandler.GetMethod("Handle")!;
+        await (Task)metodo.Invoke(casoDeUso, new object[] { request })!;
+    }
 }

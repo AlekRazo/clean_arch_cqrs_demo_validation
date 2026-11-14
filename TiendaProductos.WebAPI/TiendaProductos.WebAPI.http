@@ -1,0 +1,47 @@
+@TiendaProductos.WebAPI_HostAddress = https://localhost:7247
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+
+GET {{TiendaProductos.WebAPI_HostAddress}}/api/productos/01A1D924-722F-74BE-8214-C22AF51C00A9
+
+###
+
+@nombre=laptop
+@activo=true
+GET {{TiendaProductos.WebAPI_HostAddress}}/api/productos/filtrado?nombre={{nombre}}&activo={{activo}}
+
+###
+
+POST {{TiendaProductos.WebAPI_HostAddress}}/api/productos
+Content-Type: application/json
+
+{
+  "nombre": "Pantalla Acteck",
+  "descripcion": "Una pantalla",
+  "precio": 129.99,
+  "moneda": "USD",
+  "inventarioInicial": 5
+}
+
+###
+
+PUT {{TiendaProductos.WebAPI_HostAddress}}/api/productos/01A1D924-722F-74BE-8214-C22AF51C00A9
+Content-Type: application/json
+
+{
+  "nombre": "Laptop MSI - Actualizado",
+  "descripcion": "Una laptop - Actualizado",
+  "precio": 559.99,
+  "moneda": "USD",
+  "activo": false
+}
+
+###
+
+POST {{TiendaProductos.WebAPI_HostAddress}}/api/productos/01A1D924-722F-74BE-8214-C22AF51C00A9/inventario
+Content-Type: application/json
+
+{
+  "delta": 5
+}
+
+###

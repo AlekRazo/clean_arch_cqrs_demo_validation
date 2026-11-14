@@ -1,4 +1,6 @@
+using TiendaProductos.Application;
 using TiendaProductos.Infrastructure;
+using TiendaProductos.WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 //Aquí se llaman los servicios de Infrastructure.
-builder.Services.AgregarInfraestructura();
+builder.Services.AgregarInfraestructura().AgregaAplicacion();
 
 var app = builder.Build();
+
+app.UserExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

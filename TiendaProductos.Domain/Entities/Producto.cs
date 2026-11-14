@@ -29,15 +29,7 @@ public class Producto
 
     public static Producto Crear(string nombre, string? descripcion, Dinero precio, CantidadInventario inventario)
     {
-        /*En caso de cumplirse alguna condición se lanza una excepción. El costo de rendimiento de las excepciones
-         * es alto, pero este es un último recurso, antes de llegar a este punto ya se han implementado otras
-         * soluciones de validación de datos y rara vez se llega a este punto.
-         */
-        if (string.IsNullOrEmpty(nombre))
-            throw new BusinessRuleException("El nombre del producto es requerido.");
-
-        if (nombre.Trim().Length > 200)
-            throw new BusinessRuleException("La longitud máxima del nombre es de 200 caracteres.");
+        ValidarNombre(nombre);
 
         return new Producto
         {
@@ -46,5 +38,38 @@ public class Producto
             Precio = precio,
             CantidadInventario = inventario
         };
+    }
+
+    public void Actualizar(string nombre, string? descripcion, Dinero precio, bool activo)
+    {
+        ValidarNombre(nombre);
+
+        Nombre = nombre;
+        Description = descripcion;
+        Precio = precio;
+        Activo = activo;
+    }
+
+    public void AjustarInventario(int delta)
+    {
+        var nuevoValor = CantidadInventario.Valor + delta;
+
+        if (nuevoValor < 0)
+            throw new BusinessRuleException("No hay suficiente inventario para la operación.");
+
+        CantidadInventario = CantidadInventario.Crear(nuevoValor);
+    }
+
+    private static void ValidarNombre(string nombre)
+    {
+        /*En caso de cumplirse alguna condición se lanza una excepción. El costo de rendimiento de las excepciones
+                 * es alto, pero este es un último recurso, antes de llegar a este punto ya se han implementado otras
+                 * soluciones de validación de datos y rara vez se llega a este punto.
+                 */
+        if (string.IsNullOrEmpty(nombre))
+            throw new BusinessRuleException("El nombre del producto es requerido.");
+
+        if (nombre.Trim().Length > 200)
+            throw new BusinessRuleException("La longitud máxima del nombre es de 200 caracteres.");
     }
 }
